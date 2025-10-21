@@ -2,9 +2,9 @@ name: CI - Tests & Type Check
 
 on:
   push:
-    branches: [ main, develop ]
+    branches: [main, develop]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 jobs:
   # Frontend CI
@@ -14,26 +14,26 @@ jobs:
     defaults:
       run:
         working-directory: ./frontend
-    
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
-      
+
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      
+
       - name: 📦 Install dependencies
         run: npm ci
-      
+
       - name: 🔍 Type check
         run: npx tsc --noEmit
-      
+
       - name: 🧹 Lint code
         run: npm run lint
         continue-on-error: true
-      
+
       - name: 🏗️ Build
         run: npm run build
         env:
@@ -46,22 +46,22 @@ jobs:
     defaults:
       run:
         working-directory: ./backend
-    
+
     steps:
       - name: 📥 Checkout code
         uses: actions/checkout@v4
-      
+
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '22'
-      
+
       - name: 📦 Install dependencies
         run: npm ci
-      
+
       - name: 🧹 Lint code
         run: npm run lint
         continue-on-error: true
-      
+
       - name: 🏗️ Build
         run: npm run build
